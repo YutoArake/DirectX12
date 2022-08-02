@@ -23,7 +23,7 @@ void InitializeObject3d(Object3d* object, ID3D12Device* device) {
 		&cbResourceDesc,		// リソース設定
 		D3D12_RESOURCE_STATE_GENERIC_READ,
 		nullptr,
-		IID_PPV_ARGS(&object->constBuffTransform));
+		IID_PPV_ARGS(object->constBuffTransform.GetAddressOf()));
 	assert(SUCCEEDED(result));
 
 	// 定数バッファのマッピング

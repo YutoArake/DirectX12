@@ -12,6 +12,8 @@
 #include <string>
 #include <DirectXMath.h>
 using namespace DirectX;
+#include <wrl.h>
+using namespace Microsoft::WRL;
 
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "d3d12.lib")
@@ -32,15 +34,17 @@ struct ConstBufferDataTransform {
 // 3Dオブジェクト型
 struct Object3d {
 	// 定数バッファ（行列用）
-	ID3D12Resource* constBuffTransform;
+	ComPtr<ID3D12Resource> constBuffTransform;
+
 	// 定数バッファマップ（行列用）
 	ConstBufferDataTransform* constMapTransform;
+
 	// アフィン変換情報
 	XMFLOAT3 scale = { 1.0f, 1.0f, 1.0f };
 	XMFLOAT3 rotation = { 0.0f, 0.0f, 0.0f };
 	XMFLOAT3 position = { 0.0f, 0.0f, 0.0f };
 	// ワールド変換行列
-	XMMATRIX matWorld;
+	XMMATRIX matWorld = XMMatrixIdentity();
 	// 親オブジェクトへのポインタ
 	Object3d* parent = nullptr;
 };
